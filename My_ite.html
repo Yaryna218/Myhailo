@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Найкращий хлопець у світі</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f8ff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            color: #ff4500;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            z-index: 2;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Сердечки */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: float 5s linear infinite;
+            z-index: 1;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(-45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Найкращий хлопець у світі</h1>
+    <video id="myVideo" controls autoplay>
+        <source src="C:\Users\Acer\Desktop\MY.MOV" type="video/mp4">
+        Ваш браузер не підтримує відтворення відео.
+    </video>
+
+    <script>
+        const video = document.getElementById('myVideo');
+        video.addEventListener('timeupdate', function() {
+            if (video.currentTime >= 7) {
+                video.pause();
+            }
+        });
+
+        // Генеруємо сердечки
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (3 + Math.random() * 5) + 's';
+            heart.style.width = heart.style.height = (10 + Math.random() * 30) + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000); // видаляємо сердечко після анімації
+        }
+
+        setInterval(createHeart, 500); // нове сердечко кожні 0.5 сек
+    </script>
+</body>
+</html>
